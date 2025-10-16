@@ -29,7 +29,10 @@ If the automatic button doesn’t work:
 1. Open Home Assistant  
 2. Go to **Settings → Automations & Scenes → Blueprints → Import Blueprint**  
 3. Paste this link:  
+https://raw.githubusercontent.com/kevinderonde/Smart-Remote-Scene-Selector/main/blueprints/automation/kevinderonde/smart_remote_scene_selector.yaml
 
+yaml
+Code kopiëren
 4. Click **Preview** → **Import**
 
 ---
