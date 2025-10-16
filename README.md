@@ -1,7 +1,6 @@
 # 🎛️ Smart Remote Scene Selector
 
-[![Import Blueprint into Home Assistant](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fkevinderonde%2FSmart-Remote-Scene-Selector%2Fmain%2Fblueprints%2Fautomation%2Fkevinderonde%2Fsmart_remote_scene_selector.yaml)
-[![Manual Import](https://img.shields.io/badge/Manual%20Import-blue?logo=home-assistant&logoColor=white)](https://raw.githubusercontent.com/kevinderonde/Smart-Remote-Scene-Selector/main/blueprints/automation/kevinderonde/smart_remote_scene_selector.yaml)
+[![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fraw.githubusercontent.com%2Fkevinderonde%2FSmart-Remote-Scene-Selector%2Frefs%2Fheads%2Fmain%2FREADME.md)
 
 Easily control up to **10 Home Assistant scenes** using any remote or two button entities.  
 Each press increases or decreases a counter that switches between scenes — simple, fast, and elegant.
