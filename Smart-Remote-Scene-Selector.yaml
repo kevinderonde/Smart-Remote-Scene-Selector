@@ -1,0 +1,223 @@
+blueprint:
+  name: 📱 Afstandsbediening – Scene Keuze
+  description: |
+    # 🎛️ Afstandsbediening – Scene Keuze  
+    Bedien **tot 10 scenes** met een afstandsbediening via een teller (counter).
+
+    ## ⚙️ Voorbereiding
+    1. Maak een **counter** aan met de naam:  
+       **`scenes afstandsbediening`**
+       Instellingen counter:
+       Min. waarde = 1
+       Max. waarde = gelijk aan het aantal scenes dat je wil toewijzen
+       Initial value = 1
+    2. Maak zelf **scenes** aan om toe te wijzen.  
+    3. Wijs een **entity** toe aan de + knop en - knop.
+
+    💡 *Je kunt tot 10 scenes instellen. Alleen de ingevulde scenes worden gebruikt.*
+  domain: automation
+
+  input:
+    left_button:
+      name: 🔼 Knop voor (+)
+      selector:
+        entity: {}
+    right_button:
+      name: 🔽 Knop voor (-)
+      selector:
+        entity: {}
+    scene_1:
+      name: 🎬 Scene 1
+      default: []
+      selector:
+        entity:
+          domain: scene
+    scene_2:
+      name: 🎬 Scene 2
+      default: []
+      selector:
+        entity:
+          domain: scene
+    scene_3:
+      name: 🎬 Scene 3
+      default: []
+      selector:
+        entity:
+          domain: scene
+    scene_4:
+      name: 🎬 Scene 4
+      default: []
+      selector:
+        entity:
+          domain: scene
+    scene_5:
+      name: 🎬 Scene 5
+      default: []
+      selector:
+        entity:
+          domain: scene
+    scene_6:
+      name: 🎬 Scene 6
+      default: []
+      selector:
+        entity:
+          domain: scene
+    scene_7:
+      name: 🎬 Scene 7
+      default: []
+      selector:
+        entity:
+          domain: scene
+    scene_8:
+      name: 🎬 Scene 8
+      default: []
+      selector:
+        entity:
+          domain: scene
+    scene_9:
+      name: 🎬 Scene 9
+      default: []
+      selector:
+        entity:
+          domain: scene
+    scene_10:
+      name: 🎬 Scene 10
+      default: []
+      selector:
+        entity:
+          domain: scene
+
+mode: single
+
+trigger:
+  - platform: state
+    entity_id: !input left_button
+    id: left
+  - platform: state
+    entity_id: !input right_button
+    id: right
+  - platform: state
+    entity_id: counter.scenes_afstandsbediening
+    id: counter
+
+variables:
+  max_scenes: 10
+
+action:
+  - choose:
+      # Knop (+)
+      - conditions:
+          - condition: trigger
+            id: left
+        sequence:
+          - variables:
+              cur: "{{ states('counter.scenes_afstandsbediening') | int(0) }}"
+              next: >
+                {% set v = cur + 1 %}
+                {% if v > max_scenes %}1{% else %}{{ v }}{% endif %}
+          - service: counter.set_value
+            data:
+              entity_id: counter.scenes_afstandsbediening
+              value: "{{ next }}"
+
+      # Knop (-)
+      - conditions:
+          - condition: trigger
+            id: right
+        sequence:
+          - variables:
+              cur: "{{ states('counter.scenes_afstandsbediening') | int(0) }}"
+              prev: >
+                {% set v = cur - 1 %}
+                {% if v < 1 %}{{ max_scenes }}{% else %}{{ v }}{% endif %}
+          - service: counter.set_value
+            data:
+              entity_id: counter.scenes_afstandsbediening
+              value: "{{ prev }}"
+
+      # Scene activeren bij wijziging van counter
+      - conditions:
+          - condition: trigger
+            id: counter
+        sequence:
+          - choose:
+              - conditions:
+                  - condition: state
+                    entity_id: counter.scenes_afstandsbediening
+                    state: "1"
+                sequence:
+                  - service: scene.turn_on
+                    target:
+                      entity_id: !input scene_1
+              - conditions:
+                  - condition: state
+                    entity_id: counter.scenes_afstandsbediening
+                    state: "2"
+                sequence:
+                  - service: scene.turn_on
+                    target:
+                      entity_id: !input scene_2
+              - conditions:
+                  - condition: state
+                    entity_id: counter.scenes_afstandsbediening
+                    state: "3"
+                sequence:
+                  - service: scene.turn_on
+                    target:
+                      entity_id: !input scene_3
+              - conditions:
+                  - condition: state
+                    entity_id: counter.scenes_afstandsbediening
+                    state: "4"
+                sequence:
+                  - service: scene.turn_on
+                    target:
+                      entity_id: !input scene_4
+              - conditions:
+                  - condition: state
+                    entity_id: counter.scenes_afstandsbediening
+                    state: "5"
+                sequence:
+                  - service: scene.turn_on
+                    target:
+                      entity_id: !input scene_5
+              - conditions:
+                  - condition: state
+                    entity_id: counter.scenes_afstandsbediening
+                    state: "6"
+                sequence:
+                  - service: scene.turn_on
+                    target:
+                      entity_id: !input scene_6
+              - conditions:
+                  - condition: state
+                    entity_id: counter.scenes_afstandsbediening
+                    state: "7"
+                sequence:
+                  - service: scene.turn_on
+                    target:
+                      entity_id: !input scene_7
+              - conditions:
+                  - condition: state
+                    entity_id: counter.scenes_afstandsbediening
+                    state: "8"
+                sequence:
+                  - service: scene.turn_on
+                    target:
+                      entity_id: !input scene_8
+              - conditions:
+                  - condition: state
+                    entity_id: counter.scenes_afstandsbediening
+                    state: "9"
+                sequence:
+                  - service: scene.turn_on
+                    target:
+                      entity_id: !input scene_9
+              - conditions:
+                  - condition: state
+                    entity_id: counter.scenes_afstandsbediening
+                    state: "10"
+                sequence:
+                  - service: scene.turn_on
+                    target:
+                      entity_id: !input scene_10
